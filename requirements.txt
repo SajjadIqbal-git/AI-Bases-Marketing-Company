@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+streamlit
+httpx
+requests
+openai
+python-dotenv
+pydantic
+bcrypt
+jinja2
+python-multipart

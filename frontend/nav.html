@@ -1,0 +1,15 @@
+<header class="top">
+  <a class="mark" href="/studio">Postroom</a>
+  <nav>
+    <a href="/studio">Studio</a>
+    <a href="/profile">Profile</a>
+    {% if linkedin %}
+    <span class="who">{{ linkedin.display_name or "LinkedIn connected" }}</span>
+    {% elif linkedin_ready %}
+    <a class="link-button" href="/auth/linkedin">Connect LinkedIn</a>
+    {% endif %}
+    <form method="post" action="/logout">
+      <button type="submit" class="text">Log out</button>
+    </form>
+  </nav>
+</header>

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block body %}
+<main class="split">
+  <section class="story">
+    <p class="mark">Postroom</p>
+    <h1>A post the feed actually stops for.</h1>
+    <p>Register the company once. After that, Generate writes a short caption and a picture from what it already knows.</p>
+  </section>
+  <section class="panel">
+    <h2>Log in</h2>
+    {% include "flash.html" %}
+    <form method="post" action="/login">
+      <label>Email
+        <input type="email" name="email" autocomplete="username" required>
+      </label>
+      <label>Password
+        <input type="password" name="password" autocomplete="current-password" required>
+      </label>
+      <button type="submit" class="primary">Enter studio</button>
+    </form>
+    <p class="switch">New company? <a href="/register">Register</a></p>
+  </section>
+</main>
+{% endblock %}

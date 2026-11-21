@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "nav.html" %}
+<main class="studio">
+  <section class="compose">
+    <p class="eyebrow">{{ company.company_name }}</p>
+    <h1>Generate the next post.</h1>
+    <p class="lede">{{ company.voice }}</p>
+    {% include "flash.html" %}
+    <form method="post" action="/studio/generate" class="generate">
+      <fieldset>
+        <legend>Writer</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="provider" value="coral" checked> CoralBricks</label>
+          <label class="choice"><input type="radio" name="provider" value="openai"> OpenAI</label>
+        </div>
+        <label class="model for-coral">Coral model
+          <select name="model_coral">
+            {% for model in coral_models %}
+            <option value="{{ model }}">{{ model }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label class="model for-openai">OpenAI model
+          <select name="model_openai">
+            {% for model in openai_models %}
+            <option value="{{ model }}" {% if model == "gpt-4o" %}selected{% endif %}>{{ model }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      </fieldset>
+      <button type="submit" class="primary">Generate</button>
+      <p class="hint">No topic. The post comes from the company profile, and the next click takes a different angle. It can take a minute.</p>
+    </form>
+    {% if not linkedin %}
+    <p class="hint">
+      {% if linkedin_ready %}
+      <a href="/auth/linkedin">Connect LinkedIn</a> when you want this on your profile.
+      {% else %}
+      Add the LinkedIn app keys in .env before connecting.
+      {% endif %}
+    </p>
+    {% else %}
+    <form method="post" action="/auth/disconnect">
+      <button type="submit" class="text">Disconnect LinkedIn</button>
+    </form>
+    {% endif %}
+  </section>
+
+  <section class="stage" aria-label="Post preview">
+    {% if not draft %}
+    <article class="card empty">
+      <p>Nothing here yet.</p>
+      <p>Press Generate. Postroom already knows {{ company.company_name }}.</p>
+    </article>
+    {% else %}
+    <article class="card">
+      <header>
+        <span class="avatar" aria-hidden="true">{{ (linkedin.display_name or company.company_name)[:1] }}</span>
+        <div>
+          <strong>{{ linkedin.display_name if linkedin and linkedin.display_name else company.company_name }}</strong>
+          <span>Posting to a personal profile</span>
+        </div>
+      </header>
+      {% if draft.image_path %}
+      <img src="/media/{{ draft.id }}" alt="{{ draft.alt_text or 'Generated post image' }}">
+      {% else %}
+      <div class="missing">Image not ready</div>
+      {% endif %}
+      {% if draft.linkedin_post_id %}
+      <div class="publish">
+        <p class="review-kicker">Posted</p>
+        <p class="caption-read">{{ draft.caption }}</p>
+        <p class="meta">{{ draft.provider }} · {{ draft.model }} · posted</p>
+      </div>
+      {% elif not draft.approved %}
+      <form method="post" action="/studio/approve" class="publish">
+        <input type="hidden" name="draft_id" value="{{ draft.id }}">
+        <p class="review-kicker">Edit and approve</p>
+        <p class="hint">Change the line if you want. Approving it is what unlocks posting.</p>
+        <label class="caption-label">Caption
+          <textarea name="caption" rows="6" maxlength="3000" required>{{ draft.caption }}</textarea>
+        </label>
+        <p class="meta">{{ draft.provider }} · {{ draft.model }}</p>
+        <button type="submit" class="primary">Approve</button>
+      </form>
+      {% else %}
+      <div class="publish">
+        <p class="review-kicker">Approved</p>
+        <p class="caption-read">{{ draft.caption }}</p>
+        <p class="meta">{{ draft.provider }} · {{ draft.model }}</p>
+        <div class="actions">
+          <form method="post" action="/studio/publish" class="inline">
+            <input type="hidden" name="draft_id" value="{{ draft.id }}">
+            <button type="submit" class="primary" {% if not linkedin or not draft.image_path %}disabled{% endif %}>Post to LinkedIn</button>
+          </form>
+          <form method="post" action="/studio/revise" class="inline">
+            <input type="hidden" name="draft_id" value="{{ draft.id }}">
+            <button type="submit" class="ghost">Edit again</button>
+          </form>
+        </div>
+        {% if not linkedin %}
+        <p class="hint">Connect LinkedIn before this can leave the studio.</p>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if draft.captions and not draft.linkedin_post_id %}
+      <div class="alts">
+        <p>Other lines. Using one rewrites the image.</p>
+        {% for line in draft.captions %}
+        <form method="post" action="/studio/caption">
+          <input type="hidden" name="draft_id" value="{{ draft.id }}">
+          <input type="hidden" name="caption" value="{{ line }}">
+          <button type="submit" class="alt">{{ line }}</button>
+        </form>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </article>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

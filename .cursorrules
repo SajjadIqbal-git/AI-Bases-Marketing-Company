@@ -1,0 +1,5 @@
+Project: Postroom, a company-aware LinkedIn post demo.
+Stack: FastAPI (main.py, port 8000) serves HTML and CSS from frontend/. No Streamlit in the demo path.
+Flow: company registers a brand profile -> login -> Generate (no topic field) writes a short caption with CoralBricks or OpenAI and an image with OpenAI -> post to the connected personal LinkedIn profile (urn:li:person).
+Auth: app login is email and password in SQLite. LinkedIn OAuth scopes openid profile w_member_social, redirect http://localhost:8000/auth/callback.
+Secrets come from .env via python-dotenv. Never hardcode keys. Coral and OpenAI keys stay in separate variables.

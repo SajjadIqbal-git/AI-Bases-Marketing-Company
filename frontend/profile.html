@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block body %}
+{% include "nav.html" %}
+<main class="sheet">
+  <section class="panel wide">
+    <p class="eyebrow">Profile</p>
+    <h1>{{ company.company_name }}</h1>
+    <p class="lede">These fields are the only brief Generate uses.</p>
+    {% include "flash.html" %}
+    <form method="post" action="/profile" class="stack">
+      <label>Company name
+        <input type="text" name="company_name" value="{{ company.company_name }}" required>
+      </label>
+      <label>What you do
+        <textarea name="what_they_do" rows="3" required>{{ company.what_they_do }}</textarea>
+      </label>
+      <label>Who you serve
+        <textarea name="audience" rows="2" required>{{ company.audience }}</textarea>
+      </label>
+      <label>What you offer
+        <textarea name="offer" rows="2" required>{{ company.offer }}</textarea>
+      </label>
+      <label>A proof point
+        <textarea name="proof" rows="2" required>{{ company.proof }}</textarea>
+      </label>
+      <label>Voice
+        <input type="text" name="voice" value="{{ company.voice }}" required>
+      </label>
+      <label>Brand colors
+        <input type="text" name="brand_colors" value="{{ company.brand_colors }}" required>
+      </label>
+      <label>Website <span>optional</span>
+        <input type="url" name="website" value="{{ company.website or '' }}">
+      </label>
+      <button type="submit" class="primary">Save profile</button>
+    </form>
+    <p class="hint">Signed in as {{ company.email }}.</p>
+  </section>
+</main>
+{% endblock %}
