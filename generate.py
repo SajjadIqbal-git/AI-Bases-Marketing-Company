@@ -130,10 +130,26 @@ def _complete(provider: str, model: str, system: str, user: str, temperature: fl
     return _parse_json(content)
 
 
-def strategize(company: dict[str, Any], provider: str, model: str, avoid_angle: str) -> dict[str, Any]:
+def strategize(
+    company: dict[str, Any],
+    provider: str,
+    model: str,
+    avoid_angle: str,
+    brief: str = "",
+) -> dict[str, Any]:
+    brief = (brief or "").strip()[:1200]
+    if brief:
+        direction = (
+            "The user supplied a campaign brief. Follow that brief and the company profile. "
+            "Stay in this company's industry, offer, and audience."
+        )
+        user = f"{_profile_block(company)}\n\nCampaign brief:\n{brief}"
+    else:
+        direction = "No topic was given. Invent one fresh post from the company profile."
+        user = _profile_block(company)
     system = (
-        "You are a LinkedIn creative director. Invent one fresh post from the company profile. "
-        "No topic was given. Return only JSON with keys angle, captions, recommended, art_direction. "
+        "You are a LinkedIn creative director. "
+        f"{direction} Return only JSON with keys angle, captions, recommended, art_direction. "
         "captions is an array of exactly 3 strings. recommended is 0, 1, or 2. "
         "Each caption is 140 to 220 characters. The first sentence must stand alone when the feed cuts the rest. "
         "One concrete idea: a buyer moment, a result, or a before and after. "
@@ -144,7 +160,7 @@ def strategize(company: dict[str, Any], provider: str, model: str, avoid_angle: 
         "Write to the named audience. "
         "art_direction is one sentence for a square photograph with no text, letters, or logos in the frame."
     )
-    data = _complete(provider, model, system, _profile_block(company), 0.9)
+    data = _complete(provider, model, system, user, 0.9)
     captions = data.get("captions")
     if not isinstance(captions, list) or len(captions) < 1:
         raise GenerationError("The model did not return captions")

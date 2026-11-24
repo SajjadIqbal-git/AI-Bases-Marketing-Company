@@ -208,6 +208,16 @@ def linkedin_status(request: Request):
         "authenticated": True,
         "company_count": company_count,
         "company_name": company["company_name"],
+        "profile": {
+            "company_name": company["company_name"],
+            "what_they_do": company["what_they_do"],
+            "audience": company["audience"],
+            "offer": company["offer"],
+            "proof": company["proof"],
+            "voice": company["voice"],
+            "brand_colors": company["brand_colors"],
+            "website": company.get("website") or "",
+        },
         "login_url": "/login",
         "connect_url": "/auth/linkedin",
         "studio_url": "/studio",
@@ -311,6 +321,7 @@ def studio_generate(
     provider: str = Form("coral"),
     model_coral: str = Form(""),
     model_openai: str = Form(""),
+    brief: str = Form(""),
 ):
     company = _require_company(request)
     if isinstance(company, RedirectResponse):
@@ -325,7 +336,7 @@ def studio_generate(
     previous = db.latest_draft(company["id"])
     avoid = previous["angle"] if previous else ""
     try:
-        plan = generate.strategize(company, provider, model, avoid)
+        plan = generate.strategize(company, provider, model, avoid, brief)
         chosen = plan["captions"][plan["recommended"]]
         edited = generate.edit_caption(company, provider, model, chosen, plan["art_direction"])
         draft = db.create_draft(

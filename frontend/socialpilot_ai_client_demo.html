@@ -79,8 +79,8 @@ a.live-link{color:#315be0;font-weight:700;text-decoration:none}
       <div class="panel">
         <div class="panelhead"><div><h2>Content creation workflow</h2><div class="sub">From business brief to approved social post</div></div><span class="status green">Ready to create</span></div>
         <div class="steps"><div class="step active"><b>01 · Brief</b>Business goals</div><div class="step"><b>02 · Generate</b>Text + visuals</div><div class="step"><b>03 · Review</b>Edit and approve</div><div class="step"><b>04 · Publish</b>Post or schedule</div></div>
-        <div class="field"><label>What would you like to promote?</label><textarea id="brief">Create an engaging LinkedIn post introducing our new specialty coffee range. Highlight quality, freshness and the experience of every cup. Keep the tone warm, confident and professional.</textarea></div>
-        <div class="two"><div class="field"><label>Campaign objective</label><select><option>Brand awareness</option><option>Product promotion</option><option>Lead generation</option><option>Engagement</option><option>Website traffic</option></select></div><div class="field"><label>Target audience</label><input value="Coffee lovers, professionals, local customers"></div></div>
+        <div class="field"><label>What would you like to promote?</label><textarea id="brief" data-live="company" rows="4" placeholder="Log in to load this company's brief."></textarea></div>
+        <div class="two"><div class="field"><label>Campaign objective</label><select id="overviewObjective" data-live="company"><option>Brand awareness</option><option>Product promotion</option><option>Lead generation</option><option>Engagement</option><option>Website traffic</option></select></div><div class="field"><label>Target audience</label><input id="overviewAudience" data-live="company" placeholder="Who this company serves"></div></div>
         <div class="field"><label>Choose platform</label><div class="chips"><span class="chip selected">in LinkedIn</span><span class="chip">◎ Instagram</span><span class="chip">f Facebook</span><span class="chip">𝕏 X</span></div></div>
         <div class="actions"><button class="btn-primary js-generate" type="button" data-live="flow">✧ Generate content</button><button class="btn-light" type="button">Save brief</button></div>
       </div>
@@ -99,10 +99,10 @@ a.live-link{color:#315be0;font-weight:700;text-decoration:none}
         <div class="connectrow"><div class="platform"><div class="platformicon">f</div><div>Facebook<small>Not connected</small></div></div><span class="sub">Connect</span></div>
       </div>
       <div class="panel">
-        <div class="panelhead"><div><h2>Upcoming schedule</h2><div class="sub">Your next planned posts</div></div><span class="status">6 scheduled</span></div>
-        <div class="schedule"><div class="datebox"><b>22</b><small>NOV</small></div><div><strong>Specialty coffee launch</strong><small>LinkedIn · 10:00 AM</small></div></div>
-        <div class="schedule"><div class="datebox"><b>24</b><small>NOV</small></div><div><strong>Behind the beans</strong><small>Instagram · 12:30 PM</small></div></div>
-        <div class="schedule"><div class="datebox"><b>26</b><small>NOV</small></div><div><strong>Customer story</strong><small>LinkedIn · 9:00 AM</small></div></div>
+        <div class="panelhead"><div><h2>Upcoming schedule</h2><div class="sub">Sample layout. Scheduling is not connected.</div></div><span class="status gray">Sample</span></div>
+        <div class="schedule"><div class="datebox"><b>22</b><small>NOV</small></div><div><strong>Sample post</strong><small>LinkedIn · not scheduled</small></div></div>
+        <div class="schedule"><div class="datebox"><b>24</b><small>NOV</small></div><div><strong>Sample post</strong><small>Instagram · not connected</small></div></div>
+        <div class="schedule"><div class="datebox"><b>26</b><small>NOV</small></div><div><strong>Sample post</strong><small>LinkedIn · not scheduled</small></div></div>
       </div>
     </div>
   </div>
@@ -113,24 +113,20 @@ a.live-link{color:#315be0;font-weight:700;text-decoration:none}
   <div class="layout">
     <div class="panel">
       <h2>Campaign brief</h2><div class="sub">Tell the AI what you want to communicate.</div>
-      <div class="field"><label>Campaign prompt</label><textarea id="studioBrief" rows="5">Introduce our new specialty coffee range. Highlight premium beans, freshness and the joy of a better coffee experience.</textarea></div>
-      <div class="two"><div class="field"><label>Brand / business</label><input value="Acme Coffee Co."></div><div class="field"><label>Content format</label><select><option>Image + caption</option><option>Text-only post</option><option>Carousel concept</option><option>Short video concept</option></select></div></div>
-      <div class="two"><div class="field"><label>Tone of voice</label><select><option>Warm and professional</option><option>Friendly and playful</option><option>Premium and elegant</option><option>Bold and energetic</option></select></div><div class="field"><label>Call to action</label><select><option>Discover more</option><option>Shop now</option><option>Contact us</option><option>Learn more</option></select></div></div>
-      <div class="field"><label>Creative direction</label><input value="Premium coffee photography, warm natural light, minimal design"></div>
+      <div class="field"><label>Campaign prompt</label><textarea id="studioBrief" data-live="company" rows="5" placeholder="Log in to load this company's brief."></textarea></div>
+      <div class="two"><div class="field"><label>Brand / business</label><input id="studioBrand" data-live="company" readonly placeholder="Signed-in company"></div><div class="field"><label>Content format</label><select id="studioFormat" data-live="company"><option>Image + caption</option><option>Text-only post</option><option>Carousel concept</option><option>Short video concept</option></select></div></div>
+      <div class="two"><div class="field"><label>Tone of voice</label><select id="studioTone" data-live="company"><option>Warm and professional</option><option>Friendly and playful</option><option>Premium and elegant</option><option>Bold and energetic</option></select></div><div class="field"><label>Call to action</label><select id="studioCta" data-live="company"><option>Discover more</option><option>Shop now</option><option>Contact us</option><option>Learn more</option></select></div></div>
+      <div class="field"><label>Creative direction</label><input id="studioDirection" data-live="company" placeholder="Loaded from the company colors"></div>
       <div class="actions"><button class="btn-primary js-generate" type="button" data-live="flow">✧ Generate post</button><button class="btn-light" type="button">Save as template</button></div>
       <div class="notice">Generation can use a language model for copy and an image-generation model for visuals. Brand guidelines and approved assets can be included in the production version.</div>
     </div>
     <div class="panel">
       <div class="panelhead"><div><h2>Generated post preview</h2><div class="sub">Review before publishing</div></div><span id="draftStatus" class="status">Draft</span></div>
       <div class="preview">
-        <div class="previewtop"><div class="linkedin"><div class="inlogo">in</div> <span id="previewName">Acme Coffee Co.</span></div><span class="sub">LinkedIn preview</span></div>
+        <div class="previewtop"><div class="linkedin"><div class="inlogo">in</div> <span id="previewName">Your company</span></div><span class="sub">LinkedIn preview</span></div>
         <div class="postbody"><label class="field">Caption
-          <textarea id="caption" data-live="flow" rows="6">Great coffee is more than a drink. It is a moment worth looking forward to.
-
-Meet the specialty coffee range from Acme Coffee Co., crafted for freshness, quality and a richer everyday experience.
-
-Discover your next favourite cup.</textarea>
-        </label><div class="mockimage" id="creative"><span>YOUR NEXT GREAT CUP STARTS HERE</span></div></div>
+          <textarea id="caption" data-live="flow" rows="6" placeholder="The generated caption for this company appears here."></textarea>
+        </label><div class="mockimage" id="creative"><span>Generate a post to see the image</span></div></div>
         <div class="postfoot"><span>♡ Like</span><span>▤ Comment</span><span>↗ Repost</span><span>➤ Send</span></div>
       </div>
       <div class="actions"><button class="btn-light" type="button">Copy caption</button><button class="btn-light" type="button">Download image</button><button class="btn-soft js-approve" type="button" data-live="flow">✓ Approve draft</button><button class="btn-primary js-publish" type="button" data-live="flow">Publish now</button></div>
@@ -143,10 +139,10 @@ Discover your next favourite cup.</textarea>
   <div class="heading"><div><h1>Content Calendar</h1><p>Organize campaigns and maintain a consistent publishing schedule.</p></div><button class="btn-primary" onclick="toast('New schedule form would open here.')">＋ Schedule post</button></div>
   <div class="panel"><div class="panelhead"><h2>November 2026</h2><div><button class="btn-light">‹</button> <button class="btn-light">Today</button> <button class="btn-light">›</button></div></div>
     <div class="featurelist">
-      <div class="feature"><b>Nov 22 · Specialty coffee launch</b><span>LinkedIn · 10:00 AM · Approved</span></div>
-      <div class="feature"><b>Nov 24 · Behind the beans</b><span>Instagram · 12:30 PM · Scheduled</span></div>
-      <div class="feature"><b>Nov 26 · Customer story</b><span>LinkedIn · 9:00 AM · Draft</span></div>
-      <div class="feature"><b>Nov 28 · Weekend ritual</b><span>Instagram · 11:00 AM · Idea</span></div>
+      <div class="feature"><b>Nov 22 · Sample post</b><span>LinkedIn · scheduling is not connected</span></div>
+      <div class="feature"><b>Nov 24 · Sample post</b><span>Instagram · not connected</span></div>
+      <div class="feature"><b>Nov 26 · Sample post</b><span>LinkedIn · scheduling is not connected</span></div>
+      <div class="feature"><b>Nov 28 · Sample post</b><span>Instagram · not connected</span></div>
     </div>
     <div class="notice">Production calendar includes month/week views, drag-and-drop rescheduling, post status, channel filters and timezone-aware scheduling.</div>
   </div>
@@ -206,7 +202,7 @@ Discover your next favourite cup.</textarea>
       <button class="btn-light" type="button" id="logoutBtn" data-live="flow">Log out and switch company</button>
     </div>
   </div>
-  <div class="panel"><div class="two"><div class="field"><label>Business name</label><input value="Acme Coffee Co."></div><div class="field"><label>Industry</label><input value="Food & Beverage"></div></div><div class="field"><label>Business description</label><textarea>Specialty coffee brand focused on quality beans, freshness and memorable everyday coffee experiences.</textarea></div><div class="two"><div class="field"><label>Target audience</label><input value="Coffee enthusiasts and professionals"></div><div class="field"><label>Website</label><input value="https://example.com"></div></div><div class="field"><label>Brand voice</label><div class="chips"><span class="chip selected">Professional</span><span class="chip selected">Warm</span><span class="chip">Playful</span><span class="chip">Luxury</span><span class="chip">Bold</span></div></div><div class="field"><label>Key messages / product facts</label><textarea>Premium coffee beans. Freshly roasted. Focus on quality and customer experience. Avoid unverified health or performance claims.</textarea></div><div class="field"><label>Content rules</label><textarea>Use clear language. Avoid exaggerated claims. Include a relevant call to action. Keep copy platform-appropriate.</textarea></div><div class="notice">The sample fields below stay inactive. Use the register form above.</div></div>
+  <div class="panel" id="profileMirror"><div class="two"><div class="field"><label>Business name</label><input id="sampleName" placeholder="Signed-in company"></div><div class="field"><label>Voice</label><input id="sampleVoice" placeholder="Loaded from the company"></div></div><div class="field"><label>Business description</label><textarea id="sampleDescription" placeholder="Loaded from the company"></textarea></div><div class="two"><div class="field"><label>Target audience</label><input id="sampleAudience" placeholder="Loaded from the company"></div><div class="field"><label>Website</label><input id="sampleWebsite" placeholder="Optional"></div></div><div class="field"><label>Brand voice</label><div class="chips" id="sampleVoiceChips"><span class="chip">Professional</span><span class="chip">Warm</span><span class="chip">Playful</span><span class="chip">Luxury</span><span class="chip">Bold</span></div></div><div class="field"><label>Key messages / product facts</label><textarea id="sampleMessages" placeholder="Loaded from the company"></textarea></div><div class="field"><label>Content rules</label><textarea id="sampleRules" placeholder="Loaded from the company"></textarea></div><div class="notice">These fields show the signed-in company. Editing the saved profile is not connected on this page.</div></div>
 </section>
 
 <section class="tab" id="settings">
@@ -247,7 +243,7 @@ function markComingSoon(el){
 }
 document.querySelectorAll('button').forEach(markComingSoon);
 document.querySelectorAll('input, textarea, select').forEach(el=>{
- if(el.dataset.live==='flow'||el.closest('#registerForm')||el.closest('#loginForm')) return;
+ if(el.dataset.live==='flow'||el.dataset.live==='company'||el.closest('#registerForm')||el.closest('#loginForm')) return;
  el.disabled=true;
  el.title='Not connected';
 });
@@ -291,9 +287,58 @@ function showAccount(state){
  document.getElementById('accountNote').textContent=countLine+' Log in with an email you already used, or fill in the form to register a new company.';
  registerBtn.textContent='1 · Register or log in';
 }
+function chooseOption(select, value){
+ const text=(value||'').trim();
+ if(!select||!text) return;
+ let option=[...select.options].find(item=>item.value.toLowerCase()===text.toLowerCase());
+ if(!option){
+  option=new Option(text, text);
+  select.insertBefore(option, select.firstChild);
+ }
+ select.value=option.value;
+}
+let filledCompany='';
+function applyCompanyProfile(state){
+ const key=state.authenticated?(state.company_name||''):'';
+ if(key===filledCompany) return;
+ filledCompany=key;
+ const profile=state.profile||{};
+ const brief=state.authenticated?[
+  profile.what_they_do,
+  profile.offer?('Highlight '+profile.offer+'.'):'',
+  profile.audience?('Speak to '+profile.audience+'.'):'',
+  profile.proof?('Use this proof: '+profile.proof+'.'):'',
+  profile.voice?('Keep the tone '+profile.voice+'.'):''
+ ].filter(Boolean).join(' '):'';
+ document.getElementById('brief').value=brief;
+ document.getElementById('studioBrief').value=brief;
+ document.getElementById('studioBrand').value=profile.company_name||'';
+ document.getElementById('overviewAudience').value=profile.audience||'';
+ document.getElementById('studioDirection').value=state.authenticated
+  ? ('Photography for '+(profile.company_name||'the company')+'. Color mood: '+(profile.brand_colors||'the brand colors')+'. No text or logos in the image.')
+  : '';
+ chooseOption(document.getElementById('studioTone'), profile.voice||'');
+ document.getElementById('sampleName').value=profile.company_name||'';
+ document.getElementById('sampleVoice').value=profile.voice||'';
+ document.getElementById('sampleDescription').value=profile.what_they_do||'';
+ document.getElementById('sampleAudience').value=profile.audience||'';
+ document.getElementById('sampleWebsite').value=profile.website||'';
+ document.getElementById('sampleMessages').value=[profile.offer, profile.proof].filter(Boolean).join(' ');
+ document.getElementById('sampleRules').value=profile.voice?('Match this voice: '+profile.voice+'. Keep the copy specific and avoid unsupported claims.'):'';
+ const voice=(profile.voice||'').toLowerCase();
+ document.querySelectorAll('#sampleVoiceChips .chip').forEach(chip=>{
+  chip.classList.toggle('selected', !!voice && voice.includes(chip.textContent.trim().toLowerCase()));
+ });
+ document.getElementById('caption').value='';
+ document.getElementById('previewName').textContent=profile.company_name||'Your company';
+ const placeholder=document.createElement('span');
+ placeholder.textContent=state.authenticated?'Generate a post to see the image':'Log in to generate a post';
+ document.getElementById('creative').replaceChildren(placeholder);
+}
 function renderLinkedIn(state){
  linkedinState=state;
  showAccount(state);
+ applyCompanyProfile(state);
  const company=state.company_name||'Workspace';
  const connectBtn=document.getElementById('connectBtn');
  if(state.authenticated){
@@ -389,7 +434,18 @@ function busy(buttons, on, label){
   }
  });
 }
-async function generatePost(){
+function campaignBrief(fromOverview){
+ const prompt=(fromOverview?document.getElementById('brief'):document.getElementById('studioBrief')).value.trim();
+ const lines=[prompt];
+ if(fromOverview) lines.push('Objective: '+document.getElementById('overviewObjective').value);
+ lines.push('Format: '+document.getElementById('studioFormat').value);
+ lines.push('Tone: '+document.getElementById('studioTone').value);
+ lines.push('Call to action: '+document.getElementById('studioCta').value);
+ const direction=document.getElementById('studioDirection').value.trim();
+ if(direction) lines.push('Creative direction: '+direction);
+ return lines.filter(Boolean).join('\n');
+}
+async function generatePost(event){
  if(!linkedinState||!linkedinState.authenticated){
   toast('Register the company first.');
   switchTab('brand');
@@ -401,7 +457,9 @@ async function generatePost(){
  try{
   const body=new FormData();
   const provider=document.getElementById('writerProvider').value;
+  const fromOverview=!!(event&&event.currentTarget&&event.currentTarget.closest('#overview'));
   body.set('provider', provider);
+  body.set('brief', campaignBrief(fromOverview));
   body.set('model_coral', 'deepseek-v4.1-flash');
   body.set('model_openai', 'gpt-4o');
   const {response, payload}=await postJson('/studio/generate', body);
